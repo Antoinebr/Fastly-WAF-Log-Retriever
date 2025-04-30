@@ -75,6 +75,9 @@
 ## Usage
 
 *   **Scheduling:**  This script is designed to be run periodically using a task scheduler (e.g., cron on Linux/macOS, Task Scheduler on Windows).  Configure your scheduler to execute `node app.js` at the desired intervals (e.g., every hour, every few hours).
+
+You can schedule the execution from the script directly by using the `--cron` option like so `node main.js --cron "22 * * * *"`
+
 *   **Log Analysis:**  The JSONL output is easily parsed by various tools for log analysis, security monitoring, and incident response.  Consider using tools like `jq`, `ELK stack (Elasticsearch, Logstash, Kibana)`, or other log aggregation and analysis platforms.
 *   **Customization:**  The script can be extended or modified. You can customize:
     *   The time range for log retrieval (modify the `MAX_HOURS` variable in `.env` or the script's logic).

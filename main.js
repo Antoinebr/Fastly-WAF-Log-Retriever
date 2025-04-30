@@ -4,6 +4,10 @@ import { DateTime } from 'luxon';
 import fs from 'fs'; // Built-in Node.js module
 import path from 'path'; // Built-in Node.js module
 import { URLSearchParams } from 'url'; // Import URLSearchParams for Node.js < 17
+import cron from 'node-cron';
+
+
+const args = process.argv.slice(2); // Skip 'node' and 'main.js'
 
 // Load environment variables from .env file
 config();
@@ -49,6 +53,8 @@ async function getLogs(baseUrl, logStream, fromTimestamp, untilTimestamp) {
 
         const data = response.data.data || [];
 
+        // Here you could plug an API call to send yor logs to a third party service
+
         // Write each log entry as a separate line (JSONL format)
         data.forEach(logEntry => {
             logStream.write(JSON.stringify(logEntry) + '\n');
@@ -78,6 +84,9 @@ async function getLogs(baseUrl, logStream, fromTimestamp, untilTimestamp) {
             }
 
             const paginatedData = postResponse.data.data || [];
+
+            // Here you could plug an API call to send yor logs to a third party service
+
             paginatedData.forEach(logEntry => {
                 logStream.write(JSON.stringify(logEntry) + '\n');
             });
@@ -135,7 +144,10 @@ async function main() {
         console.log(`Fetching logs from ${currentFrom.toISO()} to ${currentUntil.toISO()}`);
 
         // Check if the untilTimestamp is greater than the current timestamp
-        if (untilTimestamp > currentTimestamp) return;
+        if (untilTimestamp > currentTimestamp){
+            console.log(`Cannot fetch logs in the future from ${currentFrom.toISO()} to ${currentUntil.toISO()}`);
+            return;
+        } 
 
         // if untilTimestamp is greater than currentTimestamp minus 5 minutes 
         if (untilTimestamp > currentTimestamp - 300) {
@@ -152,4 +164,39 @@ async function main() {
     logStream.end();
 }
 
-main().catch(e => console.log(e.data));
+
+
+
+
+const isCron = args.includes('--cron');
+
+if (isCron) {
+    
+    console.log('Running in cron mode...');
+    const cronTime = args[args.indexOf('--cron') + 1] || '6 * * * *'; // Default to every hour at minute 6
+
+    console.log(`Cron job scheduled to run at: ${cronTime}`);
+ 
+    cron.schedule(cronTime, async () => {
+        console.log('Running cron job to fetch logs...');
+        try {
+            await main();
+        } catch (error) {
+            console.error("Error during cron job:", error);
+        }
+    });
+
+}
+
+
+if (!isCron) {
+
+    console.log('Running fetch logs...');
+    main()
+        .then(() => {
+            console.log('Log fetching completed.');
+        })
+        .catch((error) => {
+            console.error("Error during log fetching:", error);
+        });
+}
