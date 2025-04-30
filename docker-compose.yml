@@ -1,0 +1,16 @@
+version: "3.8" # Use the latest version
+services:
+  ngwaf-log-fetcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NGWAF_USER_EMAIL: "${NGWAF_USER_EMAIL}"
+      NGWAF_TOKEN: "${NGWAF_TOKEN}"
+      CORP_NAME: "${CORP_NAME}"
+      SITE_NAME: "${SITE_NAME}"
+      # LOG_FILE_PATH: "logs/ngwaf_logs.jsonl" # Don't override, let it use the default.
+      MAX_HOURS: "24"
+    volumes:
+      - ./logs:/app/logs # Mount a volume for persistent logs
+    restart: unless-stopped  # Automatically restart the container unless you stop it.

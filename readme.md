@@ -93,6 +93,33 @@ You can schedule the execution from the script directly by using the `--cron` op
     *   Error handling and logging behavior.
     *   API call retries (implement retry logic in case of network issues or API rate limits – consider adding exponential backoff).
 
+## Docker 
+
+### Build the image 
+
+```
+docker build -t ngwaf-log-fetcher .
+```
+
+### Run the image
+
+```
+docker run -d \
+  -e NGWAF_USER_EMAIL="your_email@example.com" \
+  -e NGWAF_TOKEN="your_ngwaf_token" \
+  -e CORP_NAME="your_corp_name" \
+  -e SITE_NAME="your_site_name" \
+  ngwaf-log-fetcher
+```
+
+## Use Docker-compose 
+
+No need to build before : 
+
+```
+docker-compose up --build -d
+```
+
 ## Contributing
 
 Contributions are welcome!  If you find a bug, have suggestions, or want to add new features, please:
