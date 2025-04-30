@@ -72,6 +72,14 @@
 
     The script will fetch the logs from the specified time range and save them to the configured log file. You'll see console output indicating progress.
 
+6.  **Schedule the Script:**
+
+    ```bash
+    node main.js --cron "22 * * * *"           
+    ```
+
+    This command will keep the script running and fetch the logs every hour at the 22nd minute.
+
 ## Usage
 
 *   **Scheduling:**  This script is designed to be run periodically using a task scheduler (e.g., cron on Linux/macOS, Task Scheduler on Windows).  Configure your scheduler to execute `node app.js` at the desired intervals (e.g., every hour, every few hours).
