@@ -75,7 +75,7 @@
 6.  **Schedule the Script:**
 
     ```bash
-    node main.js --cron "22 * * * *"           
+    node app.js --cron "22 * * * *"           
     ```
 
     This command will keep the script running and fetch the logs every hour at the 22nd minute.
