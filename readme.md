@@ -22,11 +22,34 @@
 *   **Asynchronous Operations:** Uses `async/await` for efficient and non-blocking operations.
 *   **Rate Limit Friendly:** Includes logic to handle potentially rate-limited APIs (check and modify, if needed, based on your Fastly API usage).
 
+## Quick start 
+
+1. **Clone the repo**
+
+    ```bash
+    git clone https://github.com/antoinebr/Fastly-WAF-Log-Retriever.git
+    cd Fastly-WAF-Log-Retriever
+    ```
+2. **Set your credeitals in a .env**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+3. **Start the container**
+
+    ```bash 
+    docker-compose up --build -d
+    ```
+
 ## Installation and Setup
 
 1.  **Prerequisites:**
 
     *   Docker ( recommended )
+
+    For development or without Docker:
+
     *   Node.js (version 16 or higher recommended)
     *   npm (Node Package Manager)
     *   A Fastly Next Gen WAF account and API credentials.
@@ -166,5 +189,6 @@ Fork the repository.
 Create a new branch for your feature/fix.
 Make your changes.
 Submit a pull request.
+
 License
 MIT License
