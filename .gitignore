@@ -16,3 +16,6 @@ variables.env.now
 # Project specific
 *.jsonl
 .env
+
+
+*jsonl.gz
