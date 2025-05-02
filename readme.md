@@ -77,6 +77,7 @@
     NGWAF_TOKEN=your_api_token
     NGWAF_CORP=your_corp_name
     NGWAF_SITE=your_site_name
+    CRON_TIME = "43 * * * *" # Run every 43rd minute of every hour
     LOCAL=true  # Set to 'true' to enable local file storage (optional, default: false)
     S3=true     # Set to 'true' to enable S3 storage (optional, default: false)
     S3_BUCKET_NAME=your-s3-bucket-name  # Required if S3=true
@@ -94,6 +95,7 @@
     *   `NGWAF_TOKEN`: Your Fastly API token (generate this in your Fastly account).  **Important:  Keep this secure!**
     *   `NGWAF_CORP`: Your Fastly Corp name.
     *   `NGWAF_SITE`: Your Fastly Site name.
+    *   `CRON_TIME` : The cron like `"43 * * * *"` # to run a fetch at every 43rd minute of every hour ( Default '6 * * * *' )
     *   `LOCAL`: Set this to `true` to enable local file storage.  Defaults to `false`.
     *   `S3`: Set this to `true` to enable S3 storage.  Defaults to `false`.  When `S3=true`, also provide the S3-related settings below.
     *   `S3_BUCKET_NAME`: The name of your S3 bucket.  Required if `S3=true`.

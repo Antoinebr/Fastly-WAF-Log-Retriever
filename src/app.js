@@ -36,18 +36,6 @@ async function main() {
             if(logs && process.env.LOCAL){
                 
                 
-                
-                // const LOG_FILE_PATH = "../logs"; //process.env.LOG_FILE_PATH;
-
-                // console.log(`Writing logs to local file: ${fileKey} where ${LOG_FILE_PATH} is the path to the file`);
-                
-                // const logDir = path.dirname(LOG_FILE_PATH);
-
-                // console.log(logDir);
-                // if (!fs.existsSync(logDir)) {
-                //     fs.mkdirSync(logDir, { recursive: true });
-                // }
-
 
                 const LOG_DIR = path.join(__dirname, '../logs'); // Or './logs' if that's what you want
                 const LOG_FILE_NAME = fileKey; // You can customize this
@@ -92,7 +80,13 @@ async function main() {
 
 if (isCron) {
     console.log('Running in cron mode...');
-    const cronTime = args[args.indexOf('--cron') + 1] || '6 * * * *'; // Default to every hour at minute 6
+    let cronTime = args[args.indexOf('--cron') + 1] || '6 * * * *'; // Default to every hour at minute 6
+    
+    if(process.env.CRON_TIME){
+        cronTime = process.env.CRON_TIME;
+        console.log(`Using CRON_TIME from environment: ${cronTime}`);
+    }
+
     console.log(`Cron job scheduled to run at: ${cronTime}`);
 
     cron.schedule(cronTime, async () => {

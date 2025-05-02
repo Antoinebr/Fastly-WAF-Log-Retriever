@@ -12,6 +12,7 @@ services:
       SITE_NAME: "${SITE_NAME}"
       LOG_FILE_PATH: "${LOG_FILE_PATH}"
       MAX_HOURS: "24"
+      CRON_TIME: "${CRON_TIME}"
       LOCAL: "${LOCAL}"
       S3: ${S3}
       S3_BUCKET_NAME: "${S3_BUCKET_NAME}" # your bucketname
