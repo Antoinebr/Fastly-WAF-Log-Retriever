@@ -15,7 +15,7 @@
 *   **JSONL Output:** Logs are saved in JSON Lines format (JSONL), perfect for processing and analysis.
 *   **Flexible Storage Options:**
     *   **Local File Storage:** Logs can be saved to the local filesystem.  Configure this using the `LOCAL` environment variable.
-    *   **Amazon S3 Storage:** Logs can be uploaded to an S3 comptabile bucket.  Configure this using the `S3` environment variable and related S3-specific settings.
+    *   **S3 Storage:** Logs can be uploaded to an S3 comptabile bucket.  Configure this using the `S3` environment variable and related S3-specific settings.
 *   **Error Handling:** Includes robust error handling for API requests and file writing/S3 uploads.
 *   **Pagination Support:** Handles paginated API responses to ensure all logs are retrieved.
 *   **Environment Variable Configuration:** Uses environment variables for secure and flexible configuration.
