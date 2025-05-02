@@ -30,10 +30,16 @@
     git clone https://github.com/antoinebr/Fastly-WAF-Log-Retriever.git
     cd Fastly-WAF-Log-Retriever
     ```
-2. **Set your credeitals in a .env**
+2. **Set your credentials in a .env**
 
     ```bash
     cp .env.example .env
+    ```
+
+    Then edit the file 
+
+    ```bash 
+    nano .env
     ```
 
 3. **Start the container**

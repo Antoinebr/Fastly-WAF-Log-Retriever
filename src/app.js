@@ -28,12 +28,12 @@ async function main() {
             const { logs, fileKey } = await processHour(currentFrom, currentUntil);
 
             // If the settings are ON for S3 
-            if(logs && fileKey && process.env.S3){
+            if(logs && fileKey && process.env.S3 === "true"){
                 await uploadToS3(logs, fileKey);
             }
 
             // If the settings are ON for local storage
-            if(logs && process.env.LOCAL){
+            if(logs && process.env.LOCAL === "true"){
                 
                 
 
