@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
 import { S3_BUCKET_NAME, S3_REGION, S3_ENDPOINT, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY } from './config.js';
 import { DateTime } from 'luxon';
 
@@ -40,12 +40,25 @@ async function uploadToS3(logs, fileKey) {
 }
 
 
-function getS3FileKey(dateTime) {
-    const year = dateTime.year;
-    const month = String(dateTime.month).padStart(2, '0');
-    const day = String(dateTime.day).padStart(2, '0');
-    const hour = String(dateTime.hour).padStart(2, '0');
-    return `ngwaf-logs_year=${year}_month=${month}_day=${day}_hour=${hour}_ngwaf_logs.jsonl.gz`;
+
+
+async function fileExistsInS3(fileKey) {
+    const params = {
+        Bucket: S3_BUCKET_NAME,
+        Key: fileKey,
+    };
+
+    try {
+        await s3Client.send(new HeadObjectCommand(params));
+        return true;
+    } catch (error) {
+        if (error.name === 'NotFound') {
+            return false;
+        }
+        console.error(`Error checking file in S3: ${error}`);
+        throw error;
+    }
 }
 
-export { uploadToS3, getS3FileKey };
+
+export { uploadToS3, fileExistsInS3 };

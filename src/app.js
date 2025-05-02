@@ -1,12 +1,14 @@
 import { DateTime } from 'luxon';
 import cron from 'node-cron';
 import { MAX_HOURS } from './config.js';
-import { processHour } from './processLogs.js';
+import { processHour, getFileKey } from './processLogs.js';
 import { uploadToS3 } from './s3.js';
 import fs from 'fs'; 
 import path from 'path'; 
-import { log } from 'console';
 import { fileURLToPath } from 'url';
+import { fileExistsInS3 } from './s3.js';
+
+import {checkIfLogFileExists} from './localStorage.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,7 +27,42 @@ async function main() {
         for (let from = fromTime.toMillis(); from <= untilTime.toMillis(); from += interval) {
             const currentFrom = DateTime.fromMillis(from, { zone: 'utc' });
             const currentUntil = currentFrom.plus({ hours: 1 });
+
+
+            // Check if the file already exists 
+            const theFileKey = getFileKey(currentFrom);
+
+            // Check if the file already exists in S3
+
+
+            if(process.env.S3 === "true"){  
+
+                const alreadyExistInS3 = await fileExistsInS3(theFileKey);
+
+                if (alreadyExistInS3) {
+                    console.log(`File ${theFileKey} already exists in S3. Skipping...`);
+                    continue; // Skip to the next hour
+                }
+
+            }
+
+            // check if the file already exists in local storage
+            if( process.env.LOCAL === "true"){
+
+                if(checkIfLogFileExists(theFileKey)){
+                    console.log(`File ${theFileKey} already exists in local storage. Skipping...`);
+                    continue; // Skip to the next hour
+                }
+            }
+
+
+
             const { logs, fileKey } = await processHour(currentFrom, currentUntil);
+
+            if (!logs || logs.length === 0){
+                console.log(`No logs found for ${currentFrom.toISO()} to ${currentUntil.toISO()}`);
+                continue; // Skip to the next hour
+            }
 
             // If the settings are ON for S3 
             if(logs && fileKey && process.env.S3 === "true"){
@@ -35,8 +72,6 @@ async function main() {
             // If the settings are ON for local storage
             if(logs && process.env.LOCAL === "true"){
                 
-                
-
                 const LOG_DIR = path.join(__dirname, '../logs'); // Or './logs' if that's what you want
                 const LOG_FILE_NAME = fileKey; // You can customize this
                 const LOG_FILE_PATH = path.join(LOG_DIR, LOG_FILE_NAME);

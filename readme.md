@@ -6,6 +6,8 @@
 
 **Retrieve and archive your Fastly Next Gen WAF (NGWAF) logs efficiently. This open-source project provides a simple script to fetch and store your NGWAF request data, with options for local file storage and storage in an S3 Object Storage like Fastly Object Storage.**
 
+If you are new to Fastly WAF log retrieval, I would recommend you read the official Fastly WAF documentation first about logs: [Fastly WAF Documentation](https://docs.fastly.com/en/ngwaf/extract-your-data).
+
 ![Logo](/assets/logo.png)
 
 ## Features
