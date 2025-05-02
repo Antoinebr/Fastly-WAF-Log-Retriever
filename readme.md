@@ -158,7 +158,7 @@ You can schedule the execution from the script directly by using the `--cron` op
 ### Build the image
 
 ```bash
-docker build -t ngwaf-log-fetcher .
+docker build -t antoinebr/ngwaf-log-fetcher .
 ```
 
 ### Run the image 
@@ -171,7 +171,7 @@ docker run -d \
   -e SITE_NAME="your_site_name" \
   -e LOCAL="true" \ #Enable local file storage
   -e S3="false" \ #Disable S3 storage, change to true for S3
-  ngwaf-log-fetcher
+  antoinebr/ngwaf-log-fetcher
 ```
 
 ## Use Docker-compose
