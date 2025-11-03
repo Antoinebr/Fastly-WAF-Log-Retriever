@@ -24,6 +24,18 @@ If you are new to Fastly WAF log retrieval, I would recommend you read the offic
 *   **Asynchronous Operations:** Uses `async/await` for efficient and non-blocking operations.
 *   **Rate Limit Friendly:** Includes logic to handle potentially rate-limited APIs (check and modify, if needed, based on your Fastly API usage).
 
+
+## Demo and how to : 
+
+
+If you want to quickly get started or see how it works, have a look at this video.
+
+[![video](/assets/screenshot-video.png)](https://www.youtube.com/watch?v=M4DgD-grmKw)
+
+https://www.youtube.com/watch?v=M4DgD-grmKw
+
+
+
 ## Quick start 
 
 1. **Clone the repo**
