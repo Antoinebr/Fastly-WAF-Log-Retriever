@@ -57,14 +57,6 @@ https://www.youtube.com/watch?v=M4DgD-grmKw
     ```
 
 3. **Start the container**
-
-    Build : 
-
-    ```bash
-    docker build -t antoinebr/ngwaf-log-fetcher .
-    ```
-
-    Start : 
     
     ```bash 
     docker-compose up -d
@@ -171,7 +163,7 @@ https://www.youtube.com/watch?v=M4DgD-grmKw
 *   **Storage Configuration:**  Configure either `LOCAL=true` or `S3=true` (or both) in your `.env` file to determine where logs are stored. If both are set, the script will write to both local files and S3.
 *   **Scheduling:**  This script is designed to be run periodically using a task scheduler (e.g., cron on Linux/macOS, Task Scheduler on Windows).  Configure your scheduler to execute `node app.js` at the desired intervals (e.g., every hour, every few hours).
 
-You can schedule the execution from the script directly by using the `--cron` option like so `node index.js --cron "22 * * * *"`
+You can schedule the execution from the script directly by using the `--cron` option like so `node app.js --cron "22 * * * *"`
 
 *   **Log Analysis:**  The JSONL output (either in local files or in S3) is easily parsed by various tools for log analysis, security monitoring, and incident response.  Consider using tools like `jq`, `ELK stack (Elasticsearch, Logstash, Kibana)`, or other log aggregation and analysis platforms.
 *   **Customization:**  The script can be extended or modified. You can customize:
