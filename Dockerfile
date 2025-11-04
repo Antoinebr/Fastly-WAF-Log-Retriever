@@ -20,4 +20,4 @@ RUN mkdir -p logs
 # This will run the script in cron mode by default,
 #  and you can pass arguments to control the cron schedule.
 # Example: Run every hour at minute 6
-CMD ["node", "./src/app.js", "--cron", "6 * * * *"]  
+CMD ["node", "./src/app.js", "--cron"]  

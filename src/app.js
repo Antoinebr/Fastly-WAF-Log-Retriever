@@ -115,7 +115,10 @@ async function main() {
 
 if (isCron) {
     console.log('Running in cron mode...');
-    let cronTime = args[args.indexOf('--cron') + 1] || '6 * * * *'; // Default to every hour at minute 6
+
+    let cronTime = args.indexOf('--cron') || args[args.indexOf('--cron') + 1]; // Default to every hour at minute 6
+    
+    process.env.CRON_TIME = cronTime || process.env.CRON_TIME; // The crontime set from the CLI has the priority
     
     if(process.env.CRON_TIME){
         cronTime = process.env.CRON_TIME;

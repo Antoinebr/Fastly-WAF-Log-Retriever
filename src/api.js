@@ -2,7 +2,7 @@ import axios from 'axios';
 import { headers, NGWAF_CORP, NGWAF_SITE, base_url } from './config.js';
 
 async function fetchLogs(fromTimestamp, untilTimestamp) {
-    const url = `${base_url}/corps/${NGWAF_CORP}/sites/${NGWAF_SITE}/feed/requests?from=${fromTimestamp}&until=${untilTimestamp}`;
+    const url = `${base_url}/api/v0/corps/${NGWAF_CORP}/sites/${NGWAF_SITE}/feed/requests?from=${fromTimestamp}&until=${untilTimestamp}`;
     let allLogs = [];
     let nextUri = null;
 
@@ -20,7 +20,7 @@ async function fetchLogs(fromTimestamp, untilTimestamp) {
             nextUri = response.data.next?.uri;
 
             if (nextUri) {
-              const postUrl = `${base_url}/corps/${NGWAF_CORP}/sites/${NGWAF_SITE}/feed/requests`;
+              const postUrl = `${base_url}/api/v0/corps/${NGWAF_CORP}/sites/${NGWAF_SITE}/feed/requests`;
               const postData = { next: nextUri.split('next=')?.[1] };
               const postHeaders = {
                   ...headers,

@@ -58,8 +58,16 @@ https://www.youtube.com/watch?v=M4DgD-grmKw
 
 3. **Start the container**
 
+    Build : 
+
+    ```bash
+    docker build -t antoinebr/ngwaf-log-fetcher .
+    ```
+
+    Start : 
+    
     ```bash 
-    docker-compose up --build -d
+    docker-compose up -d
     ```
 
 ## Installation and Setup

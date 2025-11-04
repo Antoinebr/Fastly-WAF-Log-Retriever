@@ -43,7 +43,7 @@ if(MAX_HOURS > 24){
 }
 
 
-const base_url = 'https://dashboard.signalsciences.net/api/v0';
+const base_url = 'https://dashboard.signalsciences.net';
 const headers = {
     'x-api-user': NGWAF_EMAIL,
     'x-api-token': NGWAF_TOKEN,
